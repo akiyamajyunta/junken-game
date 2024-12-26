@@ -1,36 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Start from './components/Start.vue';
-import Sendenemy from './components/Sendenemy.vue';
-import Game from './components/game.vue';
-import AokiGame from './components/AokiGame.vue';
-import Win from './components/win.vue';
-import JunkenGame from './components/junkenGame.vue';
+import Start from './views/Start.vue';
+import SelectEnemy from './views/SelectEnemy.vue';
+import Game from './views/Game.vue';
 
 const routes = [
     {
-        name: "Start",
+        name: "start",
         path: "/",
         component: Start
     },
     {
-        name: "Sendenemy",
+        name: "select",
         path: "/select",
-        component: Sendenemy
+        component: SelectEnemy
     },
-    // {
-    //     name: "Game",
-    //     path: "/game",
-    //     component: Game
-    // },
     {
-        name: "junkenGame",
+        name: "game",
         path: "/game",
-        component: JunkenGame
-    },
-    {
-        name: "WinRsedult",
-        path: "/win",
-        component: Win
+        component: Game
     },
 ];
 
