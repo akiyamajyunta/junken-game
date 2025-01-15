@@ -16,7 +16,7 @@ export function getEnemyIcon(enemyId: number) {
         "../../imgs/character_gandhi.png",
         "../../imgs/character_god.png",
     ];
-
+    
     const url = new URL(icons[enemyId], import.meta.url).href;
     return url;
 }

@@ -24,8 +24,8 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import CharCard from '../../components/CharactarCard';
-import ScoreBoard from '../../components/ScoreBoard';
-import JunkenHands from '../../components/JunkenHands';
+import ScoreBoard from './ScoreBoard.vue';
+import JunkenHands from './JunkenHands.vue';
 
 const route = useRoute();
 const playerName = route.query.name as string;
