@@ -1,37 +1,28 @@
 import { ref } from 'vue';
 import {
     isBetween,
-} from  './damage';
+} from  './calculation';
 
 export const SkillName = ref<string>("")
 
-export function ultimateSkillname(a:number,b:number){
+export function ultimateSkillname(a: number, b: number){
     if(a == 0){
-        if(isBetween(b, 29, 60)){
-            return "1の型"
-        }else if(isBetween(b, 61, 89)){
-            return "2の型"
-        }else if(isBetween(b, 90, 99)){
-            return "3の型"
+        if (isBetween(b, 0, 28)){
+            return "No Limit"
+        }else if(isBetween(b, 29, 59)){
+            return "大凶斬り"
+        }else if(isBetween(b, 60,99)){
+            return "超集中 氷の呼吸"
+        }else if(isBetween(b, 100, 100)){
+            return "超武神破斬"
         }}
     else if(a == 1){
-        if(isBetween(b, 29, 60)){
-            return "4の型"
-        }else if(isBetween(b, 61, 89)){
-            return "5の型"
-        }else if(isBetween(b, 90, 99)){
-            return "6の型"
+        if (isBetween(b, 0, 28)){
+            return "No Limit"
+        }else if(isBetween(b, 29, 59)){
+            return "鉄塊"
+        }else if(isBetween(b, 60, 99)){
+            return "消力"
+        }else if(isBetween(b, 100, 100)){
+            return "凶戦士の甲冑"
         }}}
-
-
-
- 
-
-
-//武器の番号,整数n,最小値n,最大値n
-//if(武器の番号＝１)｛
-//  if
-// 
-// 
-// ｝
-
