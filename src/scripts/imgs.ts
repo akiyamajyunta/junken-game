@@ -10,10 +10,17 @@ import ken from "@/imgs/game_ken.png"
 import tate from "@/imgs/game_tate.png"
 
 
-
 export const enemyImages = [inu, zunda, gandhi, god];
 export const hands = [gu, choki, pa];
-export const me = me_;
-export const action = [ken,tate]
+export const me = [me_];
+export const actionIcon = [ken,tate]
 
 
+import { photo } from "@/components/Battel/ts/type"
+import { ref }      from 'vue';
+
+export const enemyImagesTest = ref<photo>({phot:[inu, zunda, gandhi, god],key:0});
+
+export const handsTest =ref<photo>({ phot :[gu, choki, pa],key:0} );
+
+export const actionsTest =ref<photo>({ phot :[ken,tate],key:0} );
