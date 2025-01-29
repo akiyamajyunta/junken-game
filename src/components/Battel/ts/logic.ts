@@ -1,8 +1,8 @@
 // //@@@@@@@@@@@@@様々な思考@@@@@@@@@@@
-// import { isSatisfiesExpression } from 'typescript';
+
  import { ref } from 'vue';
  import {rand} from  './calculation';
- import { gamelogic } from './gameBasicsLogic';
+ import { gameLogic } from './gameBasicsLogic';
 
 const makeHands = ref<number>(0)
 
@@ -129,9 +129,9 @@ export function junkenTypeGodLogic(recentMovesMyCount:number[],recentMovesEnCoun
 function patternChacker(phase:number,hope:number,beforList:number[],afterList:number[]){
                         const checkPoint= ref<number>(0)
    for (let i = (phase-1)-hope; i < phase -2  ; i++){
-      if(gamelogic(beforList [i],afterList[i+1])=="負け"){
+      if(gameLogic(beforList [i],afterList[i+1])== 2){
                               checkPoint.value +=1
-   }else if(gamelogic(beforList [i],afterList[i+1]) == "勝ち"){
+   }else if(gameLogic(beforList [i],afterList[i+1]) == 1){
                               checkPoint.value -=1}
       else{
                               checkPoint.value = 0
@@ -140,4 +140,4 @@ function patternChacker(phase:number,hope:number,beforList:number[],afterList:nu
                      return   checkPoint.value 
 }
 
-
+//1 かち　２　負け

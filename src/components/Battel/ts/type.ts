@@ -1,13 +1,13 @@
-export type ResultsHistry = {
-    win: number, lose: number, draw: number, phase:number,phaseSub:number
+export type ResultsHistory = {
+    win: number, lose: number, draw: number, phase:number
 };
 
-export type stasusBar = {
+export type statusBar = {
     myLfe: number, enLife: number , ability: number
 }
 
 export type MoveDmg = {
-    topPosition:number,fontSize:number,dmgResult:number, }
+    topPosition:number,fontSize:number}
 
 export type photo = {
 phot:object,key:number

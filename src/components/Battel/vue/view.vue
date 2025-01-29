@@ -1,44 +1,61 @@
 <template>
-    <div :style="{position:'relative',left: displayPositionX +'%' ,top:displayPositionY+'%' ,transition: 'top 0.3s ease , left 0.3s ease'}" class="flex justify-center items-center">  
-        <v-card  color="green" height="80%" width="80%">
-                <battelResult/>
-                    <enGage/>
-                    <result/>
+    <div class="positionSetTopOrBttom"></div>
+    <div :style="{left: displayPositionX +'%' ,top:displayPositionY+'%'}" class="movingScreen">  
+        <gameFinish/>
+        <v-card  color="black" height="80%" width="80%">
+            <div class="positionSetTopOrBttom"></div>
+                <upperLog/>
+                <div class="positionSetTopOrBttom"></div>
+                    <lifeGage :life="gage.enLife"/>
+                    <gage :life="10"/>
                     <div class="flex justify-around" height="200">
                         <div class="item">
-                            <abilityIcon/>
+                            <pictures :Icon="actionIcon[abilitySelection]"/>
+                            <div class="positionSetTopOrBttom"></div>
+                            <nameLog :name="skill.name"/>
                         </div>
-                            <enHandIcon /><!---敵のハンドアイコン-->
+                            <pictures :Icon="hands[enSelection]"/>
                         <v-cal :style="{position:'relative'}" >
-                            <enemyIcon :enemyId="enemyId" /> 
+                            <pictures :Icon="enemyImages[enemyId]"/>
+                            <movingDmg :dmg="myAttack"/>
+                            <div class="positionSetTopOrBttom"></div>
+                            <nameLog :name="enemyName[enemyId]"/>
                         </v-cal>
                     </div>
                         <div class="flex justify-around mt-4" height="200">
                             <v-cal :style="{position:'relative'}" >
-                                <myIcon :name="name"/>
+                                <pictures :Icon="me[0]"/>
+                                <movingDmg :dmg="enAttack"/>
+                                <div class="positionSetTopOrBttom"></div>
+                                <nameLog :name="name"/>
                             </v-cal>
-                                <myHandIcon/><!--自分の手札-->
-                            <div class="item"></div><!--位置調整用-->
-                        </div>
-                      
-                            <div class="actionSwitch">
-                                <abilityButton v-model="abilitySelection"  @click="abillity"/> 
+                                <pictures :Icon="hands[mySelection]"/>
+                            <div class="item">
                                 <v-cal>
-                                    <v-row
-                                        justify="center"
-                                        class="switch mt-8"
-                                        @click="pon(enemyId)"
-                                    >  
-                                        <junkenHand v-model="mySelection" />
-                                    </v-row>
-                              <OverdriveBUtton  @click="usingSkill(enemyId)"/>
+                                    <abilityButton v-model="abilitySelection" @click="ability"/> 
+                                    <div class="abilityGage">
+                                        <lifeGage :life="gage.ability"/>
+                                    </div>    
+                                        <overdriveButton  @click="usingSkill(enemyId)"/>
                                 </v-cal>
-                            </div>
-                            <div >
-                                <myGage />
-                                <battelLog :log="log"/>
-                            </div> 
-                       
+                            </div><!--位置調整用-->
+                        </div>
+                        <lifeGage :life="gage.myLfe"/>
+                        <div class="actionSwitch">
+                            <v-cal>
+                                <v-row
+                                    justify="center"
+                                    class="switch mt-8"
+                                    @click="pon(enemyId)"
+                                >  
+                                    <junkenHand v-model="mySelection" />
+                                </v-row>
+                            </v-cal>
+                        </div>
+                        <div >
+                            <underLog :lowLogs="lowLogs.news"/>
+                        </div> 
+                        <div class="positionSetTopOrBttom"></div>
         </v-card>
     </div>
   
@@ -47,36 +64,55 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { pon } from  '../ts/pon';
-import { abillity } from '../ts/abillity';
+import { ability } from '../ts/abillity';
 import { usingSkill } from '../ts/abillity';
 import { mySelection,abilitySelection,} from '../ts/gameBasicsLogic'
-import myGage from './log/myGage.vue';
-import enGage from './log/enGage.vue';
-import result from './log/result.vue';
-import myIcon from './Icon/myIcon.vue';
-import { displayPositionX,displayPositionY } from '../ts/move';
-import battelLog from './log/battelLog.vue';
-import enHandIcon from './Icon/enHandIcon.vue';
-import myHandIcon from './Icon/myHandIcon.vue';
-import abilityIcon from './Icon/abilityIcon.vue';
-import battelResult from './log/battelResult.vue';
+import { displayPositionX,displayPositionY } from './movingDmg/movingDmg';
 import junkenHand from './Butteon/junkenHand.vue';
-import enemyIcon from './Icon/enemyIcon.vue';
 import abilityButton from './Butteon/abilityButton.vue';
-import OverdriveBUtton from './Butteon/OverdriveButton .vue';
-import { log } from '../ts/log';
-import { sendEnemyname } from '../ts/name';
+import overdriveButton from './Butteon/overdriveButton .vue';
+import lifeGage from './gage'
+import pictures from './Icon'
+import { gage } from '../ts/record';
+import { enemyImages ,hands,actionIcon,me} from '@/scripts/imgs';
+import { enSelection } from '../ts/charaSelection';
+import movingDmg from './movingDmg'
+import { myAttack,enAttack } from '../ts/status';
+import upperLog from './upperLog'
+import nameLog from './nameLog'
+import { enemyName } from './nameLog/name';
+import underLog from './underLog'
+import { skill } from './nameLog/name';
+import gameFinish from './gameFinish';
+import s from './underLog'
 
 const route = useRoute();
 const name = String(route.query.name as string);
 const enemyId = Number(route.query.enemyId as string);
-        log.value = String(sendEnemyname(enemyId)+"が現れた")
+const lowLogs  = new s(enemyId);
+
+
 </script>
 
 <style scoped>
+
+.movingScreen{
+position: relative;
+transition: top 0.3s ease, left 0.3s ease;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 50px;
+background-color: rgb(255, 255, 255);
+}
+.positionSetTopOrBttom{
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0);
+}
 .item {
-    width: 100px;
-    height: 150px;
+    width: 200px;
+    height: 300px;
+    top:10px;
 }
 .switch{
 position: relative;
@@ -91,6 +127,15 @@ width: 100%;
 .actionSwitch{
 padding-bottom:30px ;
 }
-
+.abilityGage{
+    width: 300%;
+    position: relative;
+    top:30px;
+    margin-left: -100%; 
+    margin-right: -100%; 
+    transform-origin: center; 
+    justify-content: center;
+    background-color: rgba(9, 9, 255, 0);
+}
 *{outline: solid 3px rgba(0, 232, 93, 0);}
 </style>

@@ -1,36 +1,37 @@
-import { abilitySelection,abilitySelectionSub } from "./gameBasicsLogic";
-import { changeSkill } from "./calculation";
-import { gage } from "./record";
-import { stand ,limitSkill} from "./skill";
-import { log } from "./log";
-import { gameOver } from "./log";
-import { getMyStatus,getEnStatus } from "./stasus";
-import { changeTakeStand } from "./log";
-import { sendEnemyname } from "./name";
-import { battelReslut } from "./pon";
-import { gamefinishe } from "./log";
+import { abilitySelection } from "./gameBasicsLogic";
+import {s} from '../vue/underLog/log';
+import { limitSkill } from "./skill";
+import { myStatus } from "./status";
+import { skill } from "../vue/nameLog/name";
+import { gameFinishJudge } from "../vue/gameFinish/gameFinish";
 
+import { gageUpdate } from "./record";
 
-export function abillity(){
-    if(battelReslut.value ==="YOU WIN"){
-
-    }else{
-    gage.value.ability= changeSkill(abilitySelection.value,abilitySelectionSub.value,gage.value.ability)
-    abilitySelectionSub.value = abilitySelection.value
-    stand()//武器の持ち換えで変化
-    log.value = changeTakeStand(abilitySelection.value)
-}//武器の切り替え
+export function ability(){
+    stand()//構えを変えてステータス変化
+    myStatus.abilityPointReset()//異なる構で変えでアビリティ0に
+    s.takeStand()
+    console.log(lowLogs.news)
+    gageUpdate()
 }
 
+
 export function usingSkill(enemyId:number){
-    if(battelReslut.value ==="YOU WIN"){
-
-    }else{
+console.log("はつどう")
 limitSkill()
-log.value = gameOver(getMyStatus.hp,getEnStatus.hp,log.value, sendEnemyname(enemyId))
-battelReslut.value = gamefinishe(getMyStatus.hp,getEnStatus.hp,battelReslut.value)//0になったらゲームオーバーその判断
-}}//スキル発動
+myStatus.usingabillityPointReset()
+gageUpdate()
+skill.change()//スキルの名前が変わる
+gameFinishJudge()//ゲーム終了のジャッジメント
+}//スキル発動
 
+
+export function stand(){
+if(abilitySelection.value === 0){
+    myStatus.equipSword()
+}else{
+    myStatus.equipShield()
+}}
 
 
 
