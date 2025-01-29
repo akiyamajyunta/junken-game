@@ -1,6 +1,4 @@
-// 攻撃計算方法　素の攻撃力　*　武器の攻撃力　*　期限スキルによるバフ
-import { ref } from "vue"
-
+// 攻撃計算方法　素の攻撃力　*　武器の攻撃力　*　期限スキルによるバフ 
 export class Status {
     maxHp:number
     hp:number
@@ -84,7 +82,7 @@ export class Status {
         return this.basicAtk * this.itemAtk * Math.max(1, this.isBuffing() * this.buffAtkRate )* (this.rand(0, 0.2)+0.9)
     }
     def():number {
-        return this.basicDef * this.itemDef * Math.max(1, this.isBuffing() )* this.buffDefRate * (this.rand(0, 0.2)+0.9)
+        return this.basicDef * this.itemDef * Math.max(1, this.isBuffing() * this.buffDefRate )* (this.rand(0, 0.2)+0.9)
     }
 
     isBuffing(): number {
@@ -146,10 +144,10 @@ export class Status {
 
     getNormedHp(): number {
         if(this.hp >0 ){
-        return  Math.trunc((this.hp / this.maxHp) * 100);
-    }else{
-        return 0 
-    }
+            return  Math.trunc((this.hp / this.maxHp) * 100);
+        }else{
+            return 0 
+        }
     }
 
     dog(){
@@ -165,10 +163,6 @@ export class Status {
         this.statusCahnge(9999,999,999,1.5,1,1,1,1)
     }
 }
-export const myStatus = new Status();
-export const enStatus =  new Status();
-
-
 export function calculateMyDamage(atk:number, def:number){
     if(atk > def){
         return atk-def
@@ -176,15 +170,15 @@ export function calculateMyDamage(atk:number, def:number){
         return  1
     }
 }
-export const myAttack = ref<number>(0);
-export const enAttack = ref<number>(0);
+
+import { myAttack, enAttack, myStatus, enStatus } from '../vue/gameMaineLosic';
 
 export function myAttackUpdate(){
-    myAttack.value =  Math.trunc(calculateMyDamage(myStatus.atk(), enStatus.def()))
+    myAttack.value =  Math.trunc(calculateMyDamage(myStatus.value.atk(), enStatus.value.def()))
 }
 
 export function enAttackUpdate(){
-    enAttack.value =  Math.trunc(calculateMyDamage(enStatus.atk(), myStatus.def()))
+    enAttack.value =  Math.trunc(calculateMyDamage(enStatus.value.atk(), myStatus.value.def()))
 }
 
 

@@ -22,7 +22,7 @@
 @click="isTitle = false; changeColor()"
 <script setup lang="ts">
 import { ref } from 'vue';
-import { abilitySelection } from '../../ts/gameBasicsLogic';
+import { abilitySelection } from '../gameMaineLosic';
 
 const model = defineModel<number>({required: true});
 

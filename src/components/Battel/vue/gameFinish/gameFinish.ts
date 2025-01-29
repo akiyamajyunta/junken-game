@@ -1,17 +1,18 @@
 import { ref } from "vue";
 export const  gameoverSurface = ref<boolean>(false)
 export const dieOrkill = ref<string>("empty")
-import { lowlogs
+//import { lowlogs
 import { upperLogs } from "../upperLog/log";
-import { myStatus,enStatus } from "../../ts/status";
-import { mySelection,abilitySelection } from "../../ts/gameBasicsLogic";
-import { enSelection ,brain ,enemyStatusHpSend} from "../../ts/charaSelection";
-import { gageUpdate, resultsHistory } from "../../ts/record";
-import { skill } from "../nameLog/name";
+import { mySelection,abilitySelection, myStatus, enStatus } from "../gameMaineLosic";
+import { brain, enemyStatusHpSend} from "../../ts/charaSelection";
+
+import { resultsHistory } from "../gameMaineLosic";
+import { enSelection } from "../gameMaineLosic";
+//import { skill } from "../nameLog/name";
 
 export function gameFinishJudge(){
-    if(myStatus.hp  <= 0|| enStatus.hp <= 0 ){
-    lowLogs.gameFinish()
+    if(myStatus.value.hp  <= 0|| enStatus.value.hp <= 0 ){
+    //lowLogs.gameFinish()
     upperLogs.gameFinish()
     gameoverSurface .value = true
     jug()
@@ -19,28 +20,27 @@ export function gameFinishJudge(){
 
 
 function jug(){
-if(myStatus.hp <=0){
+if(myStatus.value.hp <=0){
     dieOrkill.value = "You Die"
-}else if (enStatus.hp <=0){
+}else if (enStatus.value.hp <=0){
      dieOrkill.value = "good"
 }else{}
 }
 
 export function revengeGameSet(){
-    myStatus.statusReset()
-    enStatus.statusReset()
+    myStatus.value.statusReset()
+    enStatus.value.statusReset()
     brain(0)//enemyIdのexportが解らないので犬を呼び出す
     enemyStatusHpSend(0)
     mySelection.value = 0
     enSelection.value = 0
     abilitySelection.value = 0
-    lowLogs.reset()
+    //lowLogs.reset()
     upperLogs.reset()
     gameoverSurface.value = false
     resultsHistory.value.win = 0
     resultsHistory.value.lose = 0
     resultsHistory.value.draw = 0
     resultsHistory.value.phase = 0
-    gageUpdate()    
-    skill.change()
+    //skill.change()
 }

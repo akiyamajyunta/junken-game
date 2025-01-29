@@ -1,5 +1,5 @@
 
-import { myStatus,enStatus } from '../../ts/status';
+import { myStatus,enStatus } from "../gameMaineLosic"
 export const VictoryOrDefeat = ["あいこ","かち","まけ"]
 
 
@@ -13,9 +13,9 @@ class a {
         this.news = VictoryOrDefeat[result]
     }
     gameFinish(){
-        if(myStatus.hp <= 0){
+        if(myStatus.value.hp <= 0){
             this.news = "YOU LOSE"
-        }else if(enStatus.hp <= 0){
+        }else if(enStatus.value.hp <= 0){
             this.news = "YOU WIN"
         }else{
             this.news = this.news

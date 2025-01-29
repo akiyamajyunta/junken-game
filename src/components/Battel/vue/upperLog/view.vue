@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import {  battleColor  } from "../../ts/move";
+//import {  battleColor  } from "../../ts/move";
 import { upperLogs } from "./log";
-import {resultsHistory}  from '../../ts/record'
+import { battleColor, resultsHistory } from "../gameMaineLosic";
 </script>
 
 <style lang="css" scoped>

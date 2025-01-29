@@ -1,16 +1,20 @@
-import {resultsHistory,totalRecord}  from './record'
+import {totalRecord}  from './record'
 import {displayPositionMove} from './move';
 import { DmgMoving } from '../vue/movingDmg/movingDmg';
 import { ref } from 'vue';
-import { myStatus, enStatus } from './status';
-import { myAttack,enAttack } from './status';
 import { upperLogs } from '../vue/upperLog/log';
-import { skill } from '../vue/nameLog/name';
-import { lowLogs } from '../vue/underLog/log';
+import { getResultLog } from '../vue/underLog/log';
 
-export const mySelection = ref<number>(0)
-export const abilitySelection = ref<number>(0)
-export const abilitySelectionSub = ref<number>(3)
+const enemyName = ["犬", "ずんだやん", "ガンジー", "神"];
+
+import {
+    myAttack,
+    enAttack,
+    resultsHistory,
+    myStatus,
+    enStatus,
+    underLog
+} from '../vue/gameMaineLosic';
 
 
 export function gameLogic(mySend: number, enemySend: number): number {
@@ -25,31 +29,36 @@ export function gameLogic(mySend: number, enemySend: number): number {
     
 //win 0 lose : 1 drown : 2 
 
-export function gameLogicLog(mySend: number, enemySend: number,enemyId:number){
-    const ponLog = ref<number>(gameLogic(mySend,enemySend))
+export function gameLogicLog(
+    mySend: number,
+    enemySend: number,
+    enemyId: number
+) {
+    const ponLog = ref<number>(gameLogic(mySend, enemySend))
     switch(ponLog.value){//あいこ
         case 0:
             resultsHistory.value.draw  ++
             break
         case 1:
             resultsHistory.value.win ++ 
-            enStatus.hpReduce(myAttack.value)//勝ち
+            enStatus.value.hpReduce(myAttack.value)//勝ち
             DmgMoving()
             break
         case  2:
             resultsHistory.value.lose ++
-            myStatus.hpReduce(enAttack.value)//まけ
-            myStatus.abilityPointAdd(30)
-            skill.change()
+            myStatus.value.hpReduce(enAttack.value)//まけ
+            myStatus.value.abilityPointAdd(30)
             displayPositionMove()
             DmgMoving()
             break
-    }         
-            lowLogs.pons(ponLog.value)
-            upperLogs.pons(ponLog.value)
-            totalRecord(ponLog.value)   
-            resultsHistory.value.phase ++
-            myStatus.buffRest --
+    }
+    //lowLogs.pons(ponLog.value)
+    underLog.value = getResultLog(ponLog.value, enemyName[enemyId])
+    console.log(underLog.value);
+    upperLogs.pons(ponLog.value)
+    totalRecord(ponLog.value)   
+    resultsHistory.value.phase ++
+    myStatus.value.buffRest --
 }
 
 

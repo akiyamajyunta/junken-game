@@ -1,44 +1,84 @@
-import { ref } from "vue";
-import { lowLog } from "../vue/underLog/log";
-import { skill } from "../vue/nameLog/name";
+
+import { isBetween } from "./calculation"
+import { abilitySelection, myStatus, enStatus} from "../vue/gameMaineLosic";
 
 
+export function getSkillName(): string {
+    let name = "";
+    if(abilitySelection.value == 0){
+        if (isBetween(myStatus.value.abilityPoint, 0, 28)){
+            name =  "No limit"
+        }else if(isBetween(myStatus.value.abilityPoint, 29, 59)){
+            name =  "大凶斬り"
+        }else if(isBetween(myStatus.value.abilityPoint, 60,99)){
+            name =  "集中氷の呼吸"
+        }else if(isBetween(myStatus.value.abilityPoint, 100, 100)){
+            name =  "超武神破斬"
+        }
+    } else if (abilitySelection.value == 1){
+        if (isBetween(myStatus.value.abilityPoint, 0, 28)){
+            name = "No Limit"
+        }else if(isBetween(myStatus.value.abilityPoint, 29, 59)){
+            name = "鉄塊"
+        }else if(isBetween(myStatus.value.abilityPoint, 60, 99)){
+            name = "消力"
+        }else if(isBetween(myStatus.value.abilityPoint, 100, 100)){
+            name = "凶戦士の甲冑"
+        }
+    }
+    return name;
+}
 
-import { gage,resultsHistory } from "./record";
-import { phaseJudgement } from "./calculation";
 
-import { myStatus,enStatus } from "./status";
-import { abilitySelection} from "./gameBasicsLogic";
+class Skill {
+    name: string
+    buffRest: number
 
- const transplantSkillName = ref<string>("")
-// const giveDmg = ref<number>(0)
+    constructor(name: string, buffRest: number) {
+        this.name = name
+        this.buffRest = buffRest
+    }
+}
 
-
+const skills = [
+    new Skill("大凶斬り", 5),
+    new Skill("集中氷の呼吸", 5),
+    new Skill("超武神破斬", 5)
+]
 
 
 //  skill.name(abilitySelection: number, gageValue: number)
 
 export function limitSkill(){
-    alert(skill.name)
-    if(skill.name === "大凶斬り"){
-        enStatus.hpReduce(1000)
-        myStatus.buffRest = 5
-    }else if(skill.name === "集中氷の呼吸"){
-        enStatus.buffDefRate = 0.01
-        myStatus.buffRest = 5
-    }else if(skill.name === "超武神破斬"){
-        myStatus.buffRest = 5
-    }else if(skill.name === "鉄塊"){
-        myStatus.buffRest = 5
-    }else if(skill.name === "消力"){
-        myStatus.buffRest = 5
-    }else if(skill.name === "凶戦士の甲冑"){
-        myStatus.buffRest = 5
-    }
-            transplantSkillName.value = skill.name
-            myStatus.abilityPoint = 0
+    const skillName = getSkillName();
+
+    let skill = skills[0];
+    for (let _skill of skills) {
+        if (_skill.name = skillName) {
+            skill = _skill
+        };
+    };
+
+    myStatus.value.buffRest = skill.buffRest;
+    
+    // const skill = skills.filter(skill => skill.name == skillName);
+    
+
+    // alert(skillName)
+    if(skillName === "大凶斬り"){
+        enStatus.value.hpReduce(1000)
+    }else if(skillName === "集中氷の呼吸"){
+        enStatus.value.buffDefRate = 0.01
+    }else if(skillName === "超武神破斬"){
+
+    }else if(skillName === "鉄塊"){
+
+    }else if(skillName === "消力"){
         
+    }else if(skillName === "凶戦士の甲冑"){
     }
+    myStatus.value.abilityPoint = 0;
+}
 
 // export function limitSkillSub(){  
 //     if(transplantSkillName.value === "超集中 氷の呼吸"){//攻撃力1.5倍、防御２倍が5ターン

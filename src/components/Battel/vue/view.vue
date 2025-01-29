@@ -6,13 +6,13 @@
             <div class="positionSetTopOrBttom"></div>
                 <upperLog/>
                 <div class="positionSetTopOrBttom"></div>
-                    <lifeGage :life="gage.enLife"/>
+                    <lifeGage :life="enStatus.getNormedHp"/>
                     <gage :life="10"/>
                     <div class="flex justify-around" height="200">
                         <div class="item">
                             <pictures :Icon="actionIcon[abilitySelection]"/>
                             <div class="positionSetTopOrBttom"></div>
-                            <nameLog :name="skill.name"/>
+                            <nameLog :name="getSkillName()"/>
                         </div>
                             <pictures :Icon="hands[enSelection]"/>
                         <v-cal :style="{position:'relative'}" >
@@ -34,13 +34,13 @@
                                 <v-cal>
                                     <abilityButton v-model="abilitySelection" @click="ability"/> 
                                     <div class="abilityGage">
-                                        <lifeGage :life="gage.ability"/>
-                                    </div>    
+                                        <lifeGage :life="myStatus.abilityPoint"/>
+                                    </div>
                                         <overdriveButton  @click="usingSkill(enemyId)"/>
                                 </v-cal>
                             </div><!--位置調整用-->
                         </div>
-                        <lifeGage :life="gage.myLfe"/>
+                        <lifeGage :life="myStatus.getNormedHp"/>
                         <div class="actionSwitch">
                             <v-cal>
                                 <v-row
@@ -52,10 +52,10 @@
                                 </v-row>
                             </v-cal>
                         </div>
-                        <div >
-                            <underLog :lowLogs="lowLogs.news"/>
+                        <div>
+                            <underLog :lowLogs="underLog"/>
                         </div> 
-                        <div class="positionSetTopOrBttom"></div>
+          
         </v-card>
     </div>
   
@@ -63,34 +63,41 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { pon } from  '../ts/pon';
-import { ability } from '../ts/abillity';
-import { usingSkill } from '../ts/abillity';
-import { mySelection,abilitySelection,} from '../ts/gameBasicsLogic'
-import { displayPositionX,displayPositionY } from './movingDmg/movingDmg';
+
+import lifeGage from './gage'
+import pictures from './Icon'
 import junkenHand from './Butteon/junkenHand.vue';
 import abilityButton from './Butteon/abilityButton.vue';
 import overdriveButton from './Butteon/overdriveButton .vue';
-import lifeGage from './gage'
-import pictures from './Icon'
-import { gage } from '../ts/record';
-import { enemyImages ,hands,actionIcon,me} from '@/scripts/imgs';
-import { enSelection } from '../ts/charaSelection';
-import movingDmg from './movingDmg'
-import { myAttack,enAttack } from '../ts/status';
 import upperLog from './upperLog'
 import nameLog from './nameLog'
-import { enemyName } from './nameLog/name';
-import underLog from './underLog'
-import { skill } from './nameLog/name';
 import gameFinish from './gameFinish';
-import s from './underLog'
+import movingDmg from './movingDmg'
+
+import { pon } from  '../ts/pon';
+import { ability } from '../ts/abillity';
+import { usingSkill } from '../ts/abillity';
+import { displayPositionX, displayPositionY } from './movingDmg/movingDmg';
+import { enemyImages, hands, actionIcon, me} from '@/scripts/imgs';
+import { enemyName } from './nameLog/name';
+import { getSkillName } from '../ts/skill';
+
+import {
+    enSelection,
+    mySelection,
+    abilitySelection,
+    myAttack,
+    enAttack,
+    myStatus,
+    enStatus,
+    underLog
+} from './gameMaineLosic';
 
 const route = useRoute();
 const name = String(route.query.name as string);
 const enemyId = Number(route.query.enemyId as string);
-const lowLogs  = new s(enemyId);
 
+const kari = "な゛んでだよ"
 
 </script>
 

@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { displayPositionX,displayPositionY } from '../vue/movingDmg/movingDmg';
+import { battleColor } from '../vue/gameMaineLosic';
 
-export const battleColor = ref<string>("while")
 const colorPad = ["Red"," orange", "yellow", "green", "blue","indigo", "purple","black","while"]//9個（８）
 const loopNumber = ref<number>(0)
 
@@ -51,7 +51,7 @@ export function battelFontColor(result:string){
                 for (let i = 0; i < 600; i++){
                     setTimeout(function(){
                     loopNumber.value = (loopNumber.value + 1) % 9; 
-                    battleColor .value = colorPad[loopNumber.value] 
+                    battleColor.value = colorPad[loopNumber.value] 
                     console.log(loopNumber.value )
                 },3000)}
     }else{}

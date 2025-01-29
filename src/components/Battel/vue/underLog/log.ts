@@ -1,12 +1,24 @@
-import { ref } from "vue";
 import { enemyName } from "../nameLog/name";
-//import { enemyId } from "../view.vue";
-import { myAttack,enAttack, myStatus, enStatus } from "../../ts/status";
+import {
+    abilitySelection,
+    myAttack,
+    enAttack,
+    myStatus,
+    enStatus
+} from "../gameMaineLosic";
 
-import { abilitySelection } from "../../ts/gameBasicsLogic";
 
-
-export const lowLog = ref<string>("")
+export function getResultLog(result: number, enemyName: string): string {
+    if(result === 0){
+        return "あいうちー"
+    }else if(result === 1){
+        return enemyName +"に"+myAttack.value+"のダメージを与えた"
+    }else if (result === 2){
+        return enemyName + "の攻撃"+"あなたに" + enAttack.value + "のダメージ"
+    } else {
+        return `result: ${result}`
+    }
+}
 
 export class s {
     news:string;
@@ -25,9 +37,9 @@ export class s {
             this.news =  enemyName[this.enemyId]+"の攻撃"+"あなたに"+enAttack.value+"のダメージ"
         }}
     gameFinish(){
-        if(myStatus.hp <= 0){
+        if(myStatus.value.hp <= 0){
             this.news= "やぶれた...."
-        }else if(enStatus.hp <= 0){
+        }else if(enStatus.value.hp <= 0){
             this.news =enemyName[this.enemyId]+"をたおした"
         }else{
             this.news =  this.news
@@ -43,4 +55,3 @@ export class s {
         this.news = enemyName[0] + "が現れた"
     }
     }
-

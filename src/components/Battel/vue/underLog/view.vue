@@ -7,16 +7,10 @@
 
 </template>
 
-
 <script setup lang="ts">
-
-
 const props = defineProps<{lowLogs: string}>();
 
-
-
 </script>
-
 
 <style scoped>
 .setPosition{

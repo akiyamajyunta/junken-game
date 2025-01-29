@@ -1,13 +1,10 @@
 import { logicCollect,mostRecentSend,junkenTypeGodLogic} from "./logic";
-import { ref } from "vue";
-import { resultsHistory ,recentMovesEnCount,recentMovesMyCount} from "./record";
-import { mySelection } from "./gameBasicsLogic";
+import { recentMovesEnCount,recentMovesMyCount} from "./record";
+import { mySelection,enSelection,resultsHistory } from "../vue/gameMaineLosic";
 //import { rand } from "./calculation";
-import { enStatus } from "./status";
+import { enStatus } from "../vue/gameMaineLosic";
+
 //import { enAttackUpdate } from "./dmgCalculation";
-
-
-export const enSelection = ref<number>(0)//今はグーが出てます
 
 export function brain(enemyId:number){
     if (enemyId == 0){
@@ -23,13 +20,13 @@ export function brain(enemyId:number){
 
 export function enemyStatusHpSend(enemyId:number){
     if(enemyId == 0){
-        enStatus.dog()
+        enStatus.value.dog()
     }else if(enemyId == 1){
-        enStatus.zunda()
+        enStatus.value.zunda()
     }else if(enemyId == 2) {
-        enStatus.ganji()
+        enStatus.value.ganji()
     }else if (enemyId == 3){
-        enStatus.god
+        enStatus.value.god
     } 
 }
 
