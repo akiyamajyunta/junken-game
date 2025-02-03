@@ -7,38 +7,57 @@
             <v-row  justify="center" width="15px">
                 <v-card class="equipment">
                     <div class="setPositionSub">
-                        <v-btn :style="{background:colorAtkRgba}" class="button" 
-                            @click="model= 0 ; changeColor();">ATK 
-                        </v-btn>
-                        <v-btn :style="{background:colorDefRgba}" class="button" 
-                            @click="model=1 ; changeColor();">DEF</v-btn> 
+                        <v-btn
+                            :style="{background:colorAtkRgba}"
+                            class="button" 
+                            @click="toAtkStance();"
+                        >ATK</v-btn>
+                        <v-btn
+                            :style="{background:colorDefRgba}"
+                            class="button" 
+                            @click="toDefStance();"
+                        >DEF</v-btn> 
                     </div>
                 </v-card>
             </v-row>
-
         </div>
     </div>
 </template>
-@click="isTitle = false; changeColor()"
+
 <script setup lang="ts">
 import { ref } from 'vue';
-import { abilitySelection } from '../gameMaineLosic';
+import { Status } from '../../ts/type';
+import { underLogs } from '../gameMaineLosic';
+//import changeColor from './def.'
+import { myStatus } from "../gameMaineLosic";
 
-const model = defineModel<number>({required: true});
-
+const modelStatus = defineModel<Status>({required: true});
 const colorAtkRgba = ref<string>(("rgba(255,0, 0)"))
 const colorDefRgba = ref<string>(("rgba(0,0, 0)"))
 
-    function changeColor(){
-    if (abilitySelection.value == 0){
-        colorAtkRgba.value = "rgba(255, 0, 0)"
+
+
+function toAtkStance() {
+    modelStatus.value.atkStance();
+    underLogs.takeStand()
+    changeColor()
+}
+
+function toDefStance() {
+    modelStatus.value.defStance();
+    underLogs.takeStand()
+    changeColor()
+}
+
+function  changeColor(){
+    if(myStatus.value.stance == 0){
+    colorAtkRgba.value = "rgba(255, 0, 0)"
         colorDefRgba.value = "rgba(0, 0, 0)"
-    }else if (abilitySelection.value == 1){
+    }else if (myStatus.value.stance == 1){
         colorAtkRgba.value = "rgba(0, 0, 0)"
         colorDefRgba.value = "rgba(255, 0, 0)"
     }
 }
-
 
 
 </script>

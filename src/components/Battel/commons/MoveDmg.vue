@@ -1,16 +1,13 @@
 <template>
     <div :style="{top: MovingDmg.topPosition+'%',fontSize: MovingDmg.fontSize+'px',}" class="fontPosition">
-        <p class="text-color">{{dmg}}</p>
+        <p class="text-color">{{props.dmg}} </p>
     </div>
 </template>
 
 <script setup lang="ts">
-
-import { MovingDmg } from './movingDmg';
+import { MovingDmg } from '../ts/move';
 
 const props = defineProps<{dmg: number}>();
-
-//const name = "山田太郎"
 </script>
 
 <style scoped>

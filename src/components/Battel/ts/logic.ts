@@ -1,55 +1,57 @@
 // //@@@@@@@@@@@@@様々な思考@@@@@@@@@@@
-
  import { ref } from 'vue';
- import {rand} from  './calculation';
  import { gameLogic } from './gameBasicsLogic';
+ import { enLogicCollect } from '../vue/gameMaineLosic';
+ import { myStatus } from '../vue/gameMaineLosic';
 
 const makeHands = ref<number>(0)
 
-   export class CompetitionLogic{
-      BattleMindset :number
+
+export class CompetitionLogic{
       win :number
       Lose:number
       Dorown :number
-
    constructor(){
-      this.BattleMindset =0
       this.win = 0
-      this. Lose = 0
+      this.Lose = 0
       this.Dorown = 0
    }
    winMake(hands:number){
       if (hands == 0){
-      makeHands.value = 2
-         return  makeHands.value
+            return  2
    }else{
-      makeHands.value = hands-1
-            return  makeHands.value
+            return  hands-1
          }
    }//勝つ手を選ぶ  //0 gu 1. tyoki 2 paaaa
 
    loseMake(hands:number){
       if (hands == 2){
-      makeHands.value = 0
-         return  makeHands.value
+            return  0
    }else{
-      makeHands.value = hands +1
-            return  makeHands.value
+            return  hands + 1
          }
    }//まける手を選ぶ
 
    drawMake(hands:number){
-      makeHands.value = hands
-      return  makeHands.value 
+            return  hands 
    }//必ずあいこになる
-
    randMake(){
-      makeHands.value  = Math.floor(Math.random() * 3);//ランダムに手札を選ぶ  //enemySend
-      return  makeHands.value
+            return  Math.floor(Math.random() * 3);//ランダムに手札を選ぶ  //enemySend
    }
+   SendHands(hands:number){
+      if(myStatus.value.buff.berserk == false){
+            return hands
+   }else(myStatus.value.buff.berserk == true)
+            return Math.floor(Math.random() * 3);
    }
+}
+
    
-export const logicCollect = new CompetitionLogic()
+
+function rand(maxDmg:number, minDmg:number) {
+   return Math.trunc(Math.random() * (maxDmg - minDmg) + minDmg);//数の乱数
+}
+
 
 export function mostRecentSend(recentMovesMyCount:number[],phase:number,hopePhase:number,count_switch:string){
    const LimitObj = []
@@ -72,12 +74,12 @@ export function mostRecentSend(recentMovesMyCount:number[],phase:number,hopePhas
    const myCountdDctionary : { [key: number]: number } = { 0:  LimitObjWant0 , 1: LimitObjWant1, 2: LimitObjWant2 };
    const sortmyCountdDctionary  = Object.entries(myCountdDctionary).sort((a, b) => b[1] - a[1])
 
-         return logicCollect.winMake(Number(sortmyCountdDctionary[0][0]))
+         return enLogicCollect .winMake(Number(sortmyCountdDctionary[0][0]))
  }
 
- export function winOrLoseRecord(winRecordObj:number[],phase:number,hope:number){
+ export function winOrLoseRecord(winRecordObj:number[],phase:number){
    let WinOrLoseRecordContinuous = 100
-      for (let i = (phase-1)-hope; i < phase-2; i++){
+      for (let i = phase-2; i <= phase-1; i++){
          if(((winRecordObj[i])-(winRecordObj[i+1])) === 0){
                WinOrLoseRecordContinuous += 0
          }else{
@@ -98,27 +100,27 @@ export function junkenTypeGodLogic(recentMovesMyCount:number[],recentMovesEnCoun
 
    pattenTypeOrder.value = patternChacker(phase,hope,recentMovesMyCount,recentMovesMyCount)
            if(pattenTypeOrder.value > 2){
-                     return  logicCollect.winMake(Number(recentMovesMyCount[phase-1]))// "順番"
+                     return  enLogicCollect .winMake(Number(recentMovesMyCount[phase-1]))// "順番"
            }else if(pattenTypeOrder.value < -2){
-                     return  logicCollect.winMake(Number(recentMovesMyCount[phase-1]))//  "逆順"
+                     return  enLogicCollect .winMake(Number(recentMovesMyCount[phase-1]))//  "逆順"
 
            }else{  //"順番、逆順どちらでもないのなら勝ち読みor負けよみ"
                   pattenTypeGuess.value = patternChacker(phase+1,hope,recentMovesEnCount,recentMovesMyCount)
                         if(pattenTypeGuess.value > 2){
-                                    return logicCollect.winMake(logicCollect.loseMake(recentMovesEnCount[phase-2]))//負けよみ
+                                    return enLogicCollect .winMake(enLogicCollect .loseMake(recentMovesEnCount[phase-2]))//負けよみ
                         }else if(pattenTypeGuess.value< -2){
-                                    return  logicCollect.winMake(logicCollect.winMake(recentMovesEnCount[phase-2]))//勝ち読み
+                                    return  enLogicCollect .winMake(enLogicCollect .winMake(recentMovesEnCount[phase-2]))//勝ち読み
 
                         }else{//console.log("どちらでもない")//あいこが続くのなら
                               if((recentMovesMyCount[phase-1]/2) + (recentMovesMyCount[phase-2]/2) == 2){
                                     const rand_point = ref<number>(rand(0,1000))
                                     if(rand_point.value <= 228){
-                                                return  logicCollect.winMake(Number(recentMovesMyCount [phase-1]))
+                                                return  enLogicCollect .winMake(Number(recentMovesMyCount [phase-1]))
                                                 }else if(22.9 < Number(rand_point.value) && Number(rand_point.value) < 771){
-                                                         return  logicCollect.loseMake(Number(recentMovesMyCount [phase-1]))//あいこに負ける手を
+                                                         return  enLogicCollect .loseMake(Number(recentMovesMyCount [phase-1]))//あいこに負ける手を
 
                                                 }else{
-                                                         return logicCollect.randMake()
+                                                         return enLogicCollect .randMake()
                                                       } 
                                                                }else{
 

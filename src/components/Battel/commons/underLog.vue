@@ -1,14 +1,16 @@
 <template>
     <div class="setPosition">
         <v-card class="item">
-            <a class="word">{{ props.lowLogs }}</a>
+            <a class="word">{{ props.underlog }}</a>
         </v-card> 
     </div>
-
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{lowLogs: string}>();
+
+const props = defineProps<{underlog:string}>();
+
+
 
 </script>
 

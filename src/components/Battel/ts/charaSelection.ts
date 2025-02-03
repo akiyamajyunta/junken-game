@@ -1,10 +1,8 @@
-import { logicCollect,mostRecentSend,junkenTypeGodLogic} from "./logic";
+import { mostRecentSend,junkenTypeGodLogic} from "./logic";
 import { recentMovesEnCount,recentMovesMyCount} from "./record";
-import { mySelection,enSelection,resultsHistory } from "../vue/gameMaineLosic";
-//import { rand } from "./calculation";
-import { enStatus } from "../vue/gameMaineLosic";
+import { mySelection,enSelection,resultsHistory, enStatus } from "../vue/gameMaineLosic";
+import { enLogicCollect } from "../vue/gameMaineLosic";
 
-//import { enAttackUpdate } from "./dmgCalculation";
 
 export function brain(enemyId:number){
     if (enemyId == 0){
@@ -31,12 +29,12 @@ export function enemyStatusHpSend(enemyId:number){
 }
 
 function inu() {
-        enSelection.value = logicCollect.randMake()
+        enSelection.value = enLogicCollect.randMake()
 }
 
 function zunda(){
     if ((resultsHistory.value.phase) < 5){
-        enSelection.value = logicCollect.randMake()
+        enSelection.value = enLogicCollect.randMake()
     }else{
         enSelection.value = (mostRecentSend(recentMovesMyCount,resultsHistory.value.phase,5,"ON"))
     }
@@ -45,14 +43,14 @@ function zunda(){
 
 function ganji(){
     if ((resultsHistory.value.phase) < 20){
-        enSelection.value   = logicCollect.drawMake(mySelection.value)//思考
+        enSelection.value   = enLogicCollect.drawMake(mySelection.value)//思考
     }else{
         enSelection.value  = Number(mostRecentSend(recentMovesMyCount,resultsHistory.value.phase,5,"ON"))
     }
 }//ガンジーの思考パターンとステータス
 
 function god(){
-    enSelection.value = logicCollect.randMake()
+    enSelection.value = enLogicCollect.randMake()
     enSelection.value =Number(junkenTypeGodLogic(recentMovesMyCount,recentMovesEnCount, 
                                                     resultsHistory.value.phase,4))
 }//神の思考パターンとステータス

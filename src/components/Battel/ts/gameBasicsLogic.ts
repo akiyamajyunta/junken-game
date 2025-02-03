@@ -1,19 +1,12 @@
-import {totalRecord}  from './record'
-import {displayPositionMove} from './move';
-import { DmgMoving } from '../vue/movingDmg/movingDmg';
+import {displayPositionMove, DmgMoving} from './move';
 import { ref } from 'vue';
-import { upperLogs } from '../vue/upperLog/log';
-import { getResultLog } from '../vue/underLog/log';
-
-const enemyName = ["犬", "ずんだやん", "ガンジー", "神"];
+import { upperLogs,underLogs } from '../vue/gameMaineLosic';
 
 import {
-    myAttack,
-    enAttack,
     resultsHistory,
     myStatus,
     enStatus,
-    underLog
+    mySelectionPhotoId
 } from '../vue/gameMaineLosic';
 
 
@@ -37,28 +30,29 @@ export function gameLogicLog(
     const ponLog = ref<number>(gameLogic(mySend, enemySend))
     switch(ponLog.value){//あいこ
         case 0:
-            resultsHistory.value.draw  ++
+            resultsHistory.value.draw++
             break
         case 1:
-            resultsHistory.value.win ++ 
-            enStatus.value.hpReduce(myAttack.value)//勝ち
-            DmgMoving()
+            resultsHistory.value.win++ 
+            enStatus.value.takeDmg(myStatus.value.atk())
             break
         case  2:
-            resultsHistory.value.lose ++
-            myStatus.value.hpReduce(enAttack.value)//まけ
+            resultsHistory.value.lose++
+            myStatus.value.takeDmg(enStatus.value.atk())
             myStatus.value.abilityPointAdd(30)
             displayPositionMove()
-            DmgMoving()
-            break
-    }
-    //lowLogs.pons(ponLog.value)
-    underLog.value = getResultLog(ponLog.value, enemyName[enemyId])
-    console.log(underLog.value);
+           
+            break}
+    DmgMoving(ponLog.value)
     upperLogs.pons(ponLog.value)
-    totalRecord(ponLog.value)   
-    resultsHistory.value.phase ++
-    myStatus.value.buffRest --
+    underLogs.pons(ponLog.value)
+    mySelectionPhotoId.value = mySend
+    myStatus.value.takepoison()
+
+    //totalRecord(ponLog.value)   
+    resultsHistory.value.phase++
+ 
 }
-
-
+//this.buff.atkRate
+// myStatus.value.takeDmg(enStatus.value.atk())
+// DmgMoving(2)

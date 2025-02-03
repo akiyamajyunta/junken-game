@@ -4,7 +4,6 @@
         </v-card>
 </template>
 
-
 <script setup lang="ts">
     const props = defineProps<{Icon: string[0]}>();
 </script>

@@ -1,31 +1,28 @@
 <template>
-    <div class="main">
-        <div :class="{overlay: !isTitle}" class="h-full">
-       
-            <div class="h-1/2"></div>
-            <div class="mx-auto w-1/4">
-                <v-text-field
-                    v-if="!isTitle"
-                    class="nameBox"
-                    label="Your name"
-                    v-model="textInput"
-                />
-                <v-layout class="my-4">
-                    <v-btn
+    <div class="setPosition">
+        <div class="main {overlay: !isTitle}">
+                   <v-layout> 
+                    <v-text-field
                         v-if="!isTitle"
-                        class="butten mx-auto"
-                        @click="start"
-                    >Start</v-btn>                
-                </v-layout>
-                <v-layout>
-                    <v-btn
-                        v-if="isTitle"
-                        class="butten mx-auto bg-sky-500"
-                        @click="isTitle = false; changeColor()"
-                    >Let's Play</v-btn>
-                </v-layout>
+                        class="nameBox"
+                        label="Your name"
+                        v-model="textInput"
+                    />
+                        <v-btn
+                            v-if="!isTitle"
+                            class="startButton"
+                            @click="start"
+                        >Start</v-btn>                
+                    </v-layout>
+                    <v-layout class="w-100">
+                        <v-btn
+                            variant="text"
+                            v-if="isTitle"
+                            class="button"
+                            @click="isTitle = false; changeColor()"
+                        >はじめる</v-btn>
+                    </v-layout>
             </div>
-        </div>
     </div>  
 </template>
 
@@ -59,25 +56,29 @@ function changeColor(){
 </script>
 
 <style scoped>
-.main {
-    background-image: url("@/imgs/hand_game.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    position: relative;
-    background-size: contain;
-    background-position: center;
-    height: 1000px;
+.setPosition{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: rgba(252, 114, 114, 0.31);
+    justify-content: center;
+    }
+.main{ 
+    height:80%; 
+    width:80%;
+    margin-top:3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
 }
 .nameBox{
     background-color: black;
     border: 3px solid #ccc;
     border-radius:10px;
-
-
-
 }
 .overlay{
-    background-color: rgba(0,0,0,0.85);
+    background-color: rgba(255, 0, 0, 0.392);
     position: absolute;
     top: 0;
     right: 0;
@@ -85,20 +86,21 @@ function changeColor(){
     left: 0;
     content: ' ';
 }
-.butten{
+.button{
+    border: 3px solid #ffffff;
+    border-radius:10px;
+    display: flex;
+    justify-content: center;
+    width: 30%;
+    background: rgb(0, 0, 0);
+}
+.startButton{
     border: 5px solid #ffffff;
     border-radius:10px;
-    background: rgb(0, 0, 255);
-
-
+    display: flex;
+    width: 10%;
+    background: rgb(255, 0, 0);
 }
+
+
 </style>
-
-
-
-
- <!-- class="bg-sky-500" -->
-
-
-
-

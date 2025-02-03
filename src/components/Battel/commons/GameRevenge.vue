@@ -5,40 +5,32 @@
         </div>
         <v-btn @click="clicked" class="revengeSelectionMake">aa</v-btn>
         <div class="setPosition" v-if="revengeOrEnd" >
-            <v-btn class="button"@click="gamerevenge">再戦する</v-btn>
+            <v-btn class="button"@click="revengeGameSet()">再戦する</v-btn>
             <v-btn class="button"@click="gameEnd">終わる</v-btn>
         </div>
     </div>
 </template>
 
-
-
 <script setup lang="ts">
-import { gameoverSurface ,dieOrkill,revengeGameSet} from './gameFinish';
-import { ref } from 'vue';
-const revengeOrEnd =ref<boolean>(false);
+import {
+    revengeGameSet,
+    revengeOrEnd,
+    dieOrkill,
+    gameoverSurface
+} from '../ts/gameFinish';
 
-function gamerevenge(){
-    revengeGameSet()
-//`http://localhost:3000/battel?enemyId=${enemyId}&name=${name}`;
-}
 function gameEnd(){
     window.location.href = `http://localhost:3000/`;
 
 }
+
 function clicked(){
-    revengeOrEnd.value= true
-}//画面をクリックで再戦、終わるを選べるようにしたい
+    revengeOrEnd.value= true;
+}
 
 </script>
 
-
-
-
-
 <style scoped>
-
-
 .gameFinish{
     position: absolute;
     width: 100%;

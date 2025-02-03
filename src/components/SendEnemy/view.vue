@@ -1,46 +1,44 @@
 <template>
     <v-card color="green" height="100%">
         <v-card :style="{background: 'rgb(0, 0, 255)', border: '3px solid white', borderRadius: '8px'}" height="50px">
-            <v-card-flat :style="{background: 'rgba(0, 255, 255,0)', border: '0px'}" class="text-center">
+            <v-card-flat :style="{background: 'rgba(0, 255, 255,0)'}" class="text-center">
                 <a class="flex justify-center">{{ comment }}</a>
             </v-card-flat>   
-            <v-card :style="{background: 'rgba(0, 0, 255,0)', border: '0px'}" class="text-center">
+            <v-card :style="{background: 'rgba(0, 0, 255,0)'}" class="text-center">
               <a>{{name}}</a>
             </v-card>
         </v-card>
             <div class="flex justify-center">
-                <v-card :style="{ border: '10px solid white', borderRadius: '8px' ,'background-color': color.dog}"
+                <v-card :style="{'background-color':color.dog}"
                     class="enemy"
                     @mouseover="dogHover"
                     @mouseleave="dogleave"
                     :href="buildUrl(0, textInput)"
-                    image="@/imgs/inu.png"
-                />
-             
-                <v-card :style="{ border: '10px solid white', borderRadius: '8px' ,'background-color': color.zunda}"
+                    image="@/imgs/inu.png"></v-card>
+                <v-card :style="{'background-color': color.zunda}"
                     class="enemy"
                     @mouseover="zundaHover"
                     @mouseleave="zundaleave"
                     :href="buildUrl(1, textInput)"
-                    image="@/imgs/zunda_mochi.png"
-                />
+                    image="@/imgs/zunda_mochi.png"></v-card >
             </div>
             <div class="flex justify-center">
-                <v-card :style="{ border: '10px solid white', borderRadius: '8px' ,'background-color': color.ganji}"
+                <v-card :style="{'background-color': color.ganji}"
                     class="enemy"
                     @mouseover="ganjiHover"
                     @mouseleave="ganjileave"
                     :href="buildUrl(2, textInput)"
-                    image="@/imgs/gandhi.png"
-                />
-                <v-card :style="{ border: '10px solid white', borderRadius: '8px','background-color':  color.god}"
+                    image="@/imgs/gandhi.png"></v-card
+                >
+                <v-card :style="{'background-color':  color.god}"
                     class="enemy"
                     @mouseover="godHover"
                     @mouseleave="godleave"
                     :href="buildUrl(3, textInput)"
-                    image="@/imgs/character_cthulhu_azathoth.png"
-                />
+                    image="@/imgs/character_cthulhu_azathoth.png"></v-card>
             </div>
+            <div   class="enemy"><a>div要素</a></div>
+            <v-card class="enemy border border-white "><a>カード要素</a></v-card>
     </v-card>           
 </template>
 
@@ -48,6 +46,7 @@
     import { ref} from 'vue';
     import { useRoute } from 'vue-router';
     import { color, noHoverColor, HoverColor } from './define';
+   
 
     const route = useRoute();
     const textInput = route.query.name as string;
@@ -106,6 +105,10 @@
     .enemy {
         width: 400px;
         height: 400px;
-        margin: 20px;
+        margin: 30px;
+        background-color: aqua;
+        border-radius: 20px;
+        border: 5px solid white;
     }
+
 </style>
