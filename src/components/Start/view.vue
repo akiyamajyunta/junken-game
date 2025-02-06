@@ -1,34 +1,39 @@
 <template>
     <div class="setPosition">
         <div class="main {overlay: !isTitle}">
-                   <v-layout> 
+            <v-container>
+                <v-layout class="setText"> 
                     <v-text-field
                         v-if="!isTitle"
-                        class="nameBox"
-                        label="Your name"
+                        class="textBox mx-auto"
+                        label="あなたのおなまえは？"
                         v-model="textInput"
                     />
-                        <v-btn
-                            v-if="!isTitle"
-                            class="startButton"
-                            @click="start"
-                        >Start</v-btn>                
-                    </v-layout>
-                    <v-layout class="w-100">
-                        <v-btn
-                            variant="text"
-                            v-if="isTitle"
-                            class="button"
-                            @click="isTitle = false; changeColor()"
-                        >はじめる</v-btn>
-                    </v-layout>
-            </div>
+                    <v-btn
+                        v-if="!isTitle"
+                        class="startButton mx-auto"
+                        @click="start"
+                        >Start
+                    </v-btn>                
+                </v-layout>
+                <v-layout>
+                    <v-btn
+                        variant="text"
+                        v-if="isTitle"
+                        class="button mx-auto"
+                        @click="isTitle = false; changeColor()"
+                        >はじめる
+                    </v-btn>
+                </v-layout>
+            </v-container>
+        </div>
     </div>  
 </template>
 
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { openImgs } from '@/scripts/imgs';
 
 const colorRgba = ref<string>("rgba(255,0, 255, 1)");
 const textInput = ref<String>("");
@@ -36,7 +41,7 @@ const isTitle = ref<boolean>(true);
 
 function start(){
     if(textInput.value == ""){
-        alert("you must input name");
+        alert("なまえをいれてください");
     }else if((textInput.value).length > 6){
         alert("文字数が多すぎます");}
     else{
@@ -60,25 +65,22 @@ function changeColor(){
     width: 100%;
     height: 100%;
     display: flex;
-    background-color: rgba(252, 114, 114, 0.31);
+    background-color: rgb(255, 255, 255);
     justify-content: center;
     }
 .main{ 
-    height:80%; 
-    width:80%;
+    background-image: url("@/imgs/opening.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height:90%; 
+    aspect-ratio: 3/ 2;
     margin-top:3%;
     display: flex;
-    justify-content: center;
     align-items: center;
     background-color: rgb(0, 0, 0);
 }
-.nameBox{
-    background-color: black;
-    border: 3px solid #ccc;
-    border-radius:10px;
-}
+
 .overlay{
-    background-color: rgba(255, 0, 0, 0.392);
     position: absolute;
     top: 0;
     right: 0;
@@ -90,17 +92,27 @@ function changeColor(){
     border: 3px solid #ffffff;
     border-radius:10px;
     display: flex;
-    justify-content: center;
     width: 30%;
+    margin-top:40%;
     background: rgb(0, 0, 0);
 }
 .startButton{
-    border: 5px solid #ffffff;
+    border: 3px solid #ffffff;
     border-radius:10px;
     display: flex;
-    width: 10%;
-    background: rgb(255, 0, 0);
+    width: 30%; 
+    margin-top: 10%;
+    background: rgb(0, 0, 0);
 }
+.textBox{
+    width: 50%;
+    background-color: rgb(0, 0, 0);
+    border: 3px solid #ffffff;
+}
+.setText{
+    display: grid;
+}
+
 
 
 </style>

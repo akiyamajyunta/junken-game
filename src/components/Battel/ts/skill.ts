@@ -1,4 +1,4 @@
-import { myStatus ,enStatus} from "../vue/gameMaineLosic";
+import { myStatus ,enStatus} from "../vue/gameMaineConstant";
 import { DmgMoving } from "./move";
 
 export type Stance = {
@@ -37,11 +37,11 @@ export function getBuff(id: number): Buff {
     const buffs: Buff[] = [
         {name: "", limit: 0, explanation: "", atkRate: 1.0, defRate: 1.0, poison :false, poisonDmg:0,berserk:false,curse:false},
         {name: "大凶斬り",  limit:0,explanation: "", atkRate: 1.0, defRate: 1.0, poison :false,poisonDmg:0,berserk:false,curse:false},
-        {name: "集中氷の呼吸", limit:3, explanation: "攻撃力1.5倍", atkRate: 1.5, defRate: 1.0, poison :false,poisonDmg:0,berserk:false,curse:false},
+        {name: "集中氷の呼吸", limit:3, explanation: "攻撃力1.5倍", atkRate: 1.5, defRate: 1, poison :false,poisonDmg:0,berserk:false,curse:false},
         {name: "超武神破斬", limit:5, explanation: "攻撃力2倍,防御力低下", atkRate: 2, defRate: 0.05, poison :false,poisonDmg:0,berserk:false,curse:false},
-        {name: "鉄塊", limit:1,explanation: "ダメージ無効",  atkRate: 1, defRate: 100, poison :false,poisonDmg:0,berserk:false,curse:false},
+        {name: "鉄塊", limit:1,explanation: "ダメージ無効",  atkRate: 1, defRate: 10000, poison :false,poisonDmg:0,berserk:false,curse:false},
         {name: "消力", limit:3,explanation: "防御力、攻撃力上昇",  atkRate: 2, defRate: 5, poison :false,poisonDmg:0,berserk:false,curse:false},
-        {name: "凶戦士の甲冑", limit:999,explanation: "防御力、攻撃力上昇。バーサク，毒、ノロイ",  atkRate: 5, defRate: 5, poison :true,poisonDmg:1000,berserk:true,curse:true},
+        {name: "凶戦士の甲冑", limit:999,explanation: "防御力、攻撃力上昇。バーサク，毒、ノロイ",  atkRate: 10, defRate: 10, poison :true,poisonDmg:1000,berserk:true,curse:true},
     ];
     return buffs[id];
 } 
@@ -68,7 +68,7 @@ export function skillOnetherEfeect(skillId:number){
         DmgMoving(1)
     }
 }
-//付けたい状態異常　1 バーサク　   ２　ノロイ　3 毒
+
 
 
 
@@ -100,7 +100,6 @@ export function getSkillId(): number {
             nameId = 6
         }
     }
-   // if(r)
                 return nameId
 }
 

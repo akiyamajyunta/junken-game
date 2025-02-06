@@ -12,7 +12,7 @@ export type Position2D = {
 
 // 攻撃計算方法　素の攻撃力　*　武器の攻撃力　*　期限スキルによるバフ 
 import { Buff, getBuff } from './skill';
-import { vewUseDmg } from '../vue/gameMaineLosic';
+import { vewUseDmg } from '../vue/gameMaineConstant';
 
 
 export class Status {
@@ -30,8 +30,8 @@ export class Status {
     constructor(){
         this.maxHp = 5000
         this.hp = 5000
-        this.basicAtk = 150
-        this.basicDef = 100
+        this.basicAtk = 450
+        this.basicDef = 200
         this.abilityPoint = 0
         this.abilityPointStop = false
         this.limitSkillNameId = 0
@@ -40,7 +40,7 @@ export class Status {
         this.stance = 0
     }
 
-    statusCahnge(
+    statusChange(
         maxHp: number,
         basicAtk: number,
         basicDef: number,
@@ -67,12 +67,12 @@ export class Status {
 
     atk(): number {
         const rates = [1.5, 0.8, 1.0];
-        return  Math.trunc(this.basicAtk * rates[this.stance] * this.buff.atkRate )* this.rand(0.9, 1.1)
+        return  Math.trunc(this.basicAtk * rates[this.stance] * this.buff.atkRate)* this.rand(0.9, 1.1)
     }
 
     def():number {
         const rates = [0.8, 1.5, 1.0];        
-        return Math.trunc(this.basicDef * rates[this.stance] * this.buff.defRate ) * this.rand(0.9, 1.1)
+        return Math.trunc(this.basicDef * rates[this.stance] * this.buff.defRate) * this.rand(0.9, 1.1)
     }
 
     atkStance() {
@@ -83,10 +83,10 @@ export class Status {
     }
 
     defStance() {
-       if(this.stance != 1){
+        if(this.stance != 1){
             this.stance = 1;
             this.abilityPoint = 0;
-       }
+        }
     }
     
     fleeStance(){
@@ -131,12 +131,12 @@ export class Status {
     }
 
     takeDmg(dmg: number): number {
-        const tdmg = Math.max(dmg - this.def(), 0);
-        vewUseDmg.value = tdmg
-        this.hp = Math.max(this.hp - tdmg, 0);
-        return tdmg;
+        const totalDmg = Math.max(dmg - this.def(), 0);
+        vewUseDmg.value =  totalDmg
+        this.hp = Math.max(this.hp -  totalDmg, 0);
+        return  totalDmg;
     }
-    takepoison(){
+    takePoison(){
         if(this.buff.poison == true){
             this.hp = Math.max(this.hp - this.buff.poisonDmg, 0);
         }else{
@@ -150,7 +150,7 @@ export class Status {
 
 
     viewTakeDmg(): number {
-        return  Math.trunc( vewUseDmg.value)
+        return  Math.trunc(vewUseDmg.value)
     }
 
     getNormedHp(): number {
@@ -162,15 +162,15 @@ export class Status {
     }
 
     dog(){
-        this.statusCahnge(5000,150,100)
+        this.statusChange(5000,350,100)
     }
     zunda(){
-        this.statusCahnge(6000,500,100)
+        this.statusChange(6000,500,100)
     }
-    ganji(){
-        this.statusCahnge(6000,900,100)
+    monk(){
+        this.statusChange(6000,900,100)
     }
     god(){
-        this.statusCahnge(9999,999,999)
+        this.statusChange(9999,999,999)
     }
 }

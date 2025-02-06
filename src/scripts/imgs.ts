@@ -8,14 +8,14 @@ import choki from "@/imgs/janken_choki.png";
 import pa from "@/imgs/janken_pa.png";
 import ken from "@/imgs/game_ken.png"
 import tate from "@/imgs/game_tate.png"
-import keyOpen from "@/imgs/key_open.png"
-import keyClose from "@/imgs/key_close.png"
-import kyeClose2 from "@/imgs/kye_close2.png"
+import kyeClose from "@/imgs/kye_close.png"
+import opening from "@/imgs/opening.png"
 
 
+export const openImgs = [opening]
 export const enemyImages = [inu, zunda, gandhi, god];
 export const hands = [gu, choki, pa];
 export const me = [me_];
 export const actionIcon = [ken,tate]
-export const keys =  [ken,tate]//[keyOpen,keyClose,kyeClose2];
+export const keys = [kyeClose];
 

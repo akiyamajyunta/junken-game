@@ -1,28 +1,30 @@
 import { ref } from "vue";
-import { underLogs, upperLogs } from "../vue/gameMaineLosic";
 import {
     myStatus,
     enStatus,
-} from "../vue/gameMaineLosic";
+    underLogs, 
+    upperLogs,
+} from "../vue/gameMaineConstant";
 
 export const revengeOrEnd = ref<boolean>(false);
-export const gameoverSurface = ref<boolean>(false)
-export const dieOrkill = ref<string>("empty")
+export const gameOverSurface = ref<boolean>(false)
+export const dieOrKill = ref<string>("empty")
 
 export function revengeGameSet(){
     window.location.reload();
-}
+}//再起動
 
 
 export function gameFinishJudge(){
     if(myStatus.value.hp <= 0 || enStatus.value.hp <= 0 ){
-    //lowLogs.gameFinish()
     upperLogs.gameFinish()
     underLogs.gameFinish()
-    gameoverSurface .value = true
+    gameOverSurface .value = true
     if(myStatus.value.hp <=0){
-        dieOrkill.value = "You Die"
+        dieOrKill.value = "You Die"
     }else if (enStatus.value.hp <=0){
-        dieOrkill.value = "good"
-    }else{}
+        dieOrKill.value = "good"
+    }else{
+
+    }
 }}

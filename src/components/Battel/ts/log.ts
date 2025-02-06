@@ -1,7 +1,6 @@
-
-import { myStatus,enStatus } from "../vue/gameMaineLosic"
+import { myStatus,enStatus } from "../vue/gameMaineConstant"
 export const VictoryOrDefeat = ["あいこ","かち","まけ"]
-export const enemyName = ["犬", "ずんだやん", "ガンジー", "神"]
+export const enemyName = ["犬", "ずんだやん", "高貴な僧侶", "神"]
 
 
 export class upperLog  {
@@ -21,47 +20,40 @@ export class upperLog  {
             this.news = this.news
         }
     }
-    reset(){
-         this.news = "最初はグー"
-    }
-    }
+}
     
-    export class underLog {
-        news:string;
-        enemyId: number;
-    
-        constructor(enemyId:number){
-            this.enemyId = enemyId
-            this.news = enemyName[enemyId] + "が現れた"
+export class underLog {
+    news:string;
+    enemyId: number;
+
+    constructor(enemyId:number){
+        this.enemyId = enemyId
+        this.news = enemyName[enemyId] + "が現れた"
+    }
+    pons(result:number){
+        if(result === 0){
+            this.news = "あいうちー"
+        }else if(result === 1){
+            this.news =  enemyName[this.enemyId]+"に"+myStatus.value.viewTakeDmg()+"のダメージを与えた"
+        }else if (result === 2){
+            this.news =  enemyName[this.enemyId]+"の攻撃"+"あなたに"+ enStatus.value.viewTakeDmg()+"のダメージ"
+        }}
+    usingSkill(){
+        this.news = "スキルを使用した"
+    }
+    gameFinish(){
+        if(myStatus.value.hp <= 0){
+            this.news= "やぶれた...."
+        }else if(enStatus.value.hp <= 0){
+            this.news =enemyName[this.enemyId]+"をたおした"
+        }else{
+            this.news =  this.news
+        }}
+    takeStand(){
+        if(myStatus.value.stance === 0){
+            this.news = "武器を構えた。攻撃力アップ"
+        }else if(myStatus.value.stance  === 1){
+            this.news = "身を構えた。防御力アップ"
         }
-        pons(result:number){
-            if(result === 0){
-                this.news = "あいうちー"
-            }else if(result === 1){
-                this.news =  enemyName[this.enemyId]+"に"+myStatus.value.viewTakeDmg()+"のダメージを与えた"
-            }else if (result === 2){
-                this.news =  enemyName[this.enemyId]+"の攻撃"+"あなたに"+ enStatus.value.viewTakeDmg()+"のダメージ"
-            }}
-        usingSkill(){
-            this.news = "スキルを使用した"
-        }
-        gameFinish(){
-            if(myStatus.value.hp <= 0){
-                this.news= "やぶれた...."
-            }else if(enStatus.value.hp <= 0){
-                this.news =enemyName[this.enemyId]+"をたおした"
-            }else{
-                this.news =  this.news
-            }}
-        takeStand(){
-            if(myStatus.value.stance === 0){
-                this.news = "武器を構えた。攻撃力アップ"
-            }else if(myStatus.value.stance  === 1){
-                this.news = "身を構えた。防御力アップ"
-            }
-        }
-        reset(){
-            this.news = enemyName[this.enemyId] + "が現れた"
-        }
-        }
-        //enStatus.value.viewTakeDmg(myStatus.value.atk())
+    }
+}

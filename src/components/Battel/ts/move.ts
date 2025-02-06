@@ -1,8 +1,8 @@
-//import { displayPositionX, displayPositionY } from '../vue/movingDmg/movingDmg';
-import { battleColor } from '../vue/gameMaineLosic';
+
+import { battleColor,mydmgDisplay,endmgDisplay } from '../vue/gameMaineConstant';
 import { ref } from "vue"
 import { MoveDmg, Position2D } from "../ts/type"
-import { mydmgDisplay,endmgDisplay } from '../vue/gameMaineLosic';
+
 
 
 const colorPad = [
@@ -25,9 +25,9 @@ export function DmgMovingSend(pon:number){
 
     if(pon ==1){
 
-    }else if(pon == 2){}
-
-
+    }else if(pon == 2){
+    
+    }
 }
 //1勝ち2負け
 
@@ -44,14 +44,14 @@ export function DmgMoving (pon:number){
         endmgDisplay.value = false
     }
     setTimeout(function() {
-        MovingDmg.value.fontSize = 100  
-        MovingDmg.value.topPosition= -15;
+        MovingDmg.value.fontSize = 30  
+        MovingDmg.value.topPosition= -25;
     }, 30);
     setTimeout(function() {
         MovingDmg.value.fontSize = 0; 
         MovingDmg.value.topPosition= 15;
     }, 1000);
-    }
+}
     // mydmgDisplay.value = (pon === 2);GTP先生のこれは何？
     // endmgDisplay.value = (pon === 1);
 
@@ -88,6 +88,5 @@ export function battelFontColor(result:string){
                     console.log(loopNumber.value )
                 },3000)}
     }else{}
-    }//勝ったら{Win}を光らせたい
+}//勝ったら{Win}を光らせたい
 
-  

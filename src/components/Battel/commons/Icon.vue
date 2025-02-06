@@ -1,7 +1,7 @@
 <template>
-        <v-card class="item mt-16">
-            <v-img :src="Icon" cover class="picturePosition"/>
-        </v-card>
+        <div class="Icons mt-6">
+            <v-img :src="Icon" cover class="picturePosition  mt-3"/>
+        </div>
 </template>
 
 <script setup lang="ts">
@@ -14,20 +14,17 @@
 
 <style scoped>
 
-.item {
-    width: 250px;
-    height: 300px;
-    border: 5px solid white;
+.Icons {
+    margin-top: 0%;
+    width: 90%;
+    height: 90%;
+    border: 3px solid white;
     background-color: rgb(0, 0, 0);
     display: flex;
 }
 .picturePosition{
-    justify-content: center;
-    align-items: center;
-    margin-top: 30%;
-    height: 65%;
+    background-color: black;
+    width: 30%;
+    height: 70%;
 }
 </style>
-display: flex;
-justify-content: center;
-align-items: center;

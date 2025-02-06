@@ -1,45 +1,49 @@
 <template>
-    <v-card color="green" height="100%">
-        <v-card :style="{background: 'rgb(0, 0, 255)', border: '3px solid white', borderRadius: '8px'}" height="50px">
-            <v-card-flat :style="{background: 'rgba(0, 255, 255,0)'}" class="text-center">
-                <a class="flex justify-center">{{ comment }}</a>
-            </v-card-flat>   
-            <v-card :style="{background: 'rgba(0, 0, 255,0)'}" class="text-center">
-              <a>{{name}}</a>
-            </v-card>
-        </v-card>
-            <div class="flex justify-center">
-                <v-card :style="{'background-color':color.dog}"
-                    class="enemy"
-                    @mouseover="dogHover"
-                    @mouseleave="dogleave"
-                    :href="buildUrl(0, textInput)"
-                    image="@/imgs/inu.png"></v-card>
-                <v-card :style="{'background-color': color.zunda}"
-                    class="enemy"
-                    @mouseover="zundaHover"
-                    @mouseleave="zundaleave"
-                    :href="buildUrl(1, textInput)"
-                    image="@/imgs/zunda_mochi.png"></v-card >
-            </div>
-            <div class="flex justify-center">
-                <v-card :style="{'background-color': color.ganji}"
-                    class="enemy"
-                    @mouseover="ganjiHover"
-                    @mouseleave="ganjileave"
-                    :href="buildUrl(2, textInput)"
-                    image="@/imgs/gandhi.png"></v-card
-                >
-                <v-card :style="{'background-color':  color.god}"
-                    class="enemy"
-                    @mouseover="godHover"
-                    @mouseleave="godleave"
-                    :href="buildUrl(3, textInput)"
-                    image="@/imgs/character_cthulhu_azathoth.png"></v-card>
-            </div>
-            <div   class="enemy"><a>div要素</a></div>
-            <v-card class="enemy border border-white "><a>カード要素</a></v-card>
-    </v-card>           
+    <div class="setPosition">
+        <div class="main">
+            <v-container>
+                <div class="text-zone mx-auto">
+                        <a class="flex justify-center">{{ comment }}</a>
+                        <a class="flex justify-center">{{name}}</a>
+                </div>
+                <div class="setIconFlex mx-auto">
+                    <div class="setIconGrid mx-auto">
+                        <div class="flex justify-center w-100">
+                            <v-card :style="{'background-color':color.dog , 'border': '3px solid rgb(255, 255, 255)'}"
+                                class="enemy"
+                                @mouseover="dogHover"
+                                @mouseleave="dogleave"
+                                :href="buildUrl(0, textInput)"
+                                image="@/imgs/inu.png"></v-card>
+                            <v-card :style="{'background-color': color.zunda, 'border': '3px solid rgb(255, 255, 255)'}"
+                                class="enemy"
+                                @mouseover="zundaHover"
+                                @mouseleave="zundaleave"
+                                :href="buildUrl(1, textInput)"
+                                image="@/imgs/zunda_mochi.png"></v-card >
+                        </div>
+                        <div class="flex justify-center  w-100">
+                            <v-card :style="{'background-color': color.monk, 'border': '3px solid rgb(255, 255, 255)'}"
+                                class="enemy"
+                                @mouseover="monkHover"
+                                @mouseleave="monkleave"
+                                :href="buildUrl(2, textInput)"
+                                image="@/imgs/gandhi.png"></v-card
+                            >
+                            <v-card :style="{'background-color':  color.god, 'border': '3px solid rgb(255, 255, 255)'}"
+                                class="enemy"
+                                @mouseover="godHover"
+                                @mouseleave="godleave"
+                                :href="buildUrl(3, textInput)"
+                                image="@/imgs/character_cthulhu_azathoth.png"></v-card>
+                        </div>
+                    </div>
+                </div>
+        </v-container>
+        </div>
+    </div> 
+
+           
 </template>
 
 <script setup lang="ts">
@@ -51,7 +55,7 @@
     const route = useRoute();
     const textInput = route.query.name as string;
     
-    let comment= ref<string>("");
+    let comment= ref<string>("たたかいたい相手をえらんでください");
     let name = ref<string>("");
   
 
@@ -71,10 +75,10 @@
         color.value.zunda = HoverColor
     }
     
-    function ganjiHover(){
+    function monkHover(){
         comment.value = "暴力野郎は私の世界最強格闘技[ヨガ]で殲滅だ！" 
-        name.value ="-ガンジー-" 
-        color.value.ganji = HoverColor
+        name.value ="-高貴なる僧侶-" 
+        color.value.monk = HoverColor
     }
     
     function godHover(){
@@ -90,8 +94,8 @@
         color.value.zunda = noHoverColor
     }
 
-    function ganjileave(){
-        color.value.ganji = noHoverColor
+    function monkleave(){
+        color.value.monk = noHoverColor
     }
 
     function godleave(){
@@ -102,13 +106,45 @@
 </script>
     
 <style>
-    .enemy {
-        width: 400px;
-        height: 400px;
-        margin: 30px;
-        background-color: aqua;
-        border-radius: 20px;
-        border: 5px solid white;
+.setPosition{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    justify-content: center;
     }
+.main{ 
+    height:90%; 
+    aspect-ratio: 3/ 2;
+    margin-top:3%;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(0, 0, 0);
+}
+.text-zone{
+    margin-top: 3%;
+    height: 10%;
+    display: grid;
+    width: 80%;
+    background-color: rgb(0, 0, 0);
+    border: 3px solid white;
+}
+.setIconGrid{
+    margin-top: 0%;
+    width:  80%;
+    height: 80%;
+    display: grid;
+}
+.setIconFlex{
+    width: 80%;
+    height: 80%;
+    display: flex;
+}
+.enemy {
+    height: 80%;
+    display: flex;
+    aspect-ratio:1;
+    margin: 30px;
+}
 
 </style>

@@ -1,8 +1,7 @@
 import { ref } from "vue"
 import { ResultsHistory, Status } from '../ts/type';
-import { tSDeclareFunction } from "@babel/types";
 import { upperLog ,underLog} from "../ts/log";
-import { CompetitionLogic } from "../ts/logic";
+import { recentMovesMyCount } from "../ts/record";
 
 
 export const enSelection = ref<number>(0)//今はグーが出てます
@@ -23,14 +22,12 @@ export const enStatus =  ref<Status>(new Status());
 export const vewUseDmg = ref<number>(0)
 
 export const recordSkillId = ref<number>(0)
-export const openLimitSkilltarch =ref<boolean>(false)
+
 
 export const upperLogs   = new upperLog()
 export const underLogs = new underLog (0)
 
-export const myLogicCollect = new CompetitionLogic()
-export const enLogicCollect = new CompetitionLogic()
+export const btnText = ref<string>("Gage Stop");
 
-export const btnText = ref<string>("Stop");
-
-//export const underLog = ref<string>("");
+//記録の末尾を取得
+export const recordLast = ref<number>(recentMovesMyCount.length-1)

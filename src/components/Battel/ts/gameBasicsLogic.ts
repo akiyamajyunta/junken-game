@@ -1,31 +1,31 @@
-import {displayPositionMove, DmgMoving} from './move';
+import { DmgMoving } from './move';
 import { ref } from 'vue';
-import { upperLogs,underLogs } from '../vue/gameMaineLosic';
-
+import { displayPositionMove } from './move';
 import {
     resultsHistory,
     myStatus,
     enStatus,
-    mySelectionPhotoId
-} from '../vue/gameMaineLosic';
+    upperLogs,
+    underLogs,
+} from '../vue/gameMaineConstant';
 
 
 export function gameLogic(mySend: number, enemySend: number): number {
     if (mySend == enemySend) {
         return  0              
-    } else if 
-       ((mySend - enemySend + 3) % 3 == 2){
+    }else if 
+        ((mySend - enemySend + 3) % 3 == 2){
         return  1                   
-    } else{
+    }else{
         return  2                       
-    }}
+    }
+}
     
-//win 0 lose : 1 drown : 2 
+//drown 0 win : 1 lose : 2 
 
 export function gameLogicLog(
     mySend: number,
     enemySend: number,
-    enemyId: number
 ) {
     const ponLog = ref<number>(gameLogic(mySend, enemySend))
     switch(ponLog.value){//あいこ
@@ -41,18 +41,12 @@ export function gameLogicLog(
             myStatus.value.takeDmg(enStatus.value.atk())
             myStatus.value.abilityPointAdd(30)
             displayPositionMove()
-           
-            break}
-    DmgMoving(ponLog.value)
-    upperLogs.pons(ponLog.value)
-    underLogs.pons(ponLog.value)
-    mySelectionPhotoId.value = mySend
-    myStatus.value.takepoison()
-
-    //totalRecord(ponLog.value)   
-    resultsHistory.value.phase++
- 
+            break
+        }
+        DmgMoving(ponLog.value)
+        upperLogs.pons(ponLog.value)
+        underLogs.pons(ponLog.value)
+    
+        myStatus.value.takePoison()
+        resultsHistory.value.phase++
 }
-//this.buff.atkRate
-// myStatus.value.takeDmg(enStatus.value.atk())
-// DmgMoving(2)

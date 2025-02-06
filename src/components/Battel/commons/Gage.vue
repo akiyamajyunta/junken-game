@@ -1,9 +1,8 @@
 <template>
-    <div class="setPosition">   
+    <div class="flex justify-center">   
         <v-card class="backGage">
             <v-card :style="{ width:life+'%'}"  class="gage"></v-card>
         </v-card>
-
     </div>
 </template>
 
@@ -12,13 +11,8 @@ defineProps<{life: number}>();
 
 </script>
 <style scoped>
-.setPosition{
-width: 100%;
-display: flex;
-justify-content: center;
-}
 .backGage{
-height: 30px;
+height: 20px;
 background :rgb(0, 0, 0);
 width: 30%;
 border-Radius: 15px; 
