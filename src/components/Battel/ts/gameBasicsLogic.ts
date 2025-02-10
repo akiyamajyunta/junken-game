@@ -42,11 +42,10 @@ export function gameLogicLog(
             myStatus.value.abilityPointAdd(30)
             displayPositionMove()
             break
-        }
-        DmgMoving(ponLog.value)
-        upperLogs.pons(ponLog.value)
-        underLogs.pons(ponLog.value)
-    
-        myStatus.value.takePoison()
-        resultsHistory.value.phase++
+    }
+    DmgMoving(ponLog.value)
+    upperLogs.pons(ponLog.value)
+    underLogs.pons(ponLog.value)
+    myStatus.value.takePoison()
+    resultsHistory.value.phase++
 }

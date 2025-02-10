@@ -22,13 +22,14 @@ export function pon(enemyId:number){
 
 export function useSkill() {
     if(getSkillId() !== 0){
-    underLogs.usingSkill()
-    myStatus.value.setBuff(getSkillId());
-    myStatus.value.buff = getBuff(getSkillId());
-    skillOnetherEfeect(getSkillId());
-    myStatus.value.usingabillityPointReset();
-    btnText.value = "Gage Stop"
-    myStatus.value.abilityPointStop = false
-    gameFinishJudge();
-}}
+        underLogs.usingSkill()
+        myStatus.value.setBuff(getSkillId());
+        myStatus.value.buff = getBuff(getSkillId());
+        skillOnetherEfeect(getSkillId());
+        myStatus.value.usingabillityPointReset();
+        btnText.value = "Gage Stop"
+        myStatus.value.abilityPointStop = false
+        gameFinishJudge();
+    }
+}
 

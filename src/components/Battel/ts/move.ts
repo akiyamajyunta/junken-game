@@ -1,22 +1,10 @@
 
-import { battleColor,mydmgDisplay,endmgDisplay } from '../vue/gameMaineConstant';
+import { mydmgDisplay,endmgDisplay } from '../vue/gameMaineConstant';
 import { ref } from "vue"
 import { MoveDmg, Position2D } from "../ts/type"
 
 
 
-const colorPad = [
-    "Red",
-    "orange",
-    "yellow",
-    "green",
-    "blue",
-    "indigo",
-    "purple",
-    "black",
-    "while"
-]//9個（８）
-const loopNumber = ref<number>(0)
 
 export const MovingDmg = ref<MoveDmg>({topPosition: 0, fontSize: 0})
 export const displayPosition = ref<Position2D>({x: 0, y:0 });
@@ -52,8 +40,7 @@ export function DmgMoving (pon:number){
         MovingDmg.value.topPosition= 15;
     }, 1000);
 }
-    // mydmgDisplay.value = (pon === 2);GTP先生のこれは何？
-    // endmgDisplay.value = (pon === 1);
+
 
 
 export function displayPositionMove(){
@@ -79,14 +66,5 @@ export function displayPositionMove(){
     )
 }
 
-export function battelFontColor(result:string){
-    if (result === "YOU WIN"){
-                for (let i = 0; i < 600; i++){
-                    setTimeout(function(){
-                    loopNumber.value = (loopNumber.value + 1) % 9; 
-                    battleColor.value = colorPad[loopNumber.value] 
-                    console.log(loopNumber.value )
-                },3000)}
-    }else{}
-}//勝ったら{Win}を光らせたい
+
 
